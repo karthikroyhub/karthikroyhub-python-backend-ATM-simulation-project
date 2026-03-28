@@ -1,93 +1,95 @@
-    # internal setup
+#taking internal setup----------------------------------
 password=1234
 balance=30000
 tran_hist=[]
 attempts=3
-    # passwprd verification. max 3 attempts.
-while attempts > 0:
+total=0
+#verify password, 3 attempts only.------------------------
+while (attempts>0):
+  print("             ")
   try:
-    pin=(int(input("ENTER THE PIN :")))
+    pin=int(input("Enter The Password: "))
   except (ValueError,TypeError,KeyError):
-    print("enter four numbers only,try again")
+    attempts-=1
+    print("please Enter Password in Numbers only \n your remaing attempt are: ",attempts)
     continue
-  
-  if pin == password:
-    print("login successfull")
+  if pin==password:
+    print("login successfull, please wait..,")
     break
   else:
     attempts-=1
-    print(f"wrong password, remaining attempts are {attempts}")
-if attempts == 0:
-  print("no more attempts, account block")
+    print("wrong password, remaining attempts are",attempts)
+    continue
+if attempts==0:
+  print("no more attempts, account blocked")
   exit()
-    # showing atm options to user
+#showing ATM menu to the costomer-------------------------------
 while True:
-  print("---ATM---")
-  print("1-->diposit \n2-->withdraw")
-  print("3-->transaction history \n4-->exit")
-    # getting user choice
+  print("              ")
+  print("!----- ATM -----!")
+  print("1--->DIPOSIT \n2-->WITHIDRAW \n3-->BALANCE CHECK")
+  print("4-->TRANSACTION HISTORY \n5-->EXIT")
+  print("           ")
   try:
-    choice=(int(input("select the option : ")))
-  except TypeError:
-    print("enter only number")
+    choice=int(input("enter the choice:"))
+  except (ValueError,TypeError,KeyError):
+    print("please choose only number above options")
     continue
   match choice:
-    
-    case 1:#logic for depasit amount
+    case 1:
       try:
-        num1=(float(input("enter depasit amount:")))
-      except TypeError:
-        print("enter amount in numbers only")
+        num1=float(input("Enter the DEPOSIT Amount:"))
+      except (ValueError,TypeError,KeyError):
+        print("enter amount in numbers only...,")
         continue
       if num1>0:
-        total = num1 + balance
-        tran_hist.append(f"depasit-->${num1}")
-        print("successfully diposited")
-        print(f"current balance = {total}")
+        total= balance + num1
+        tran_hist.append(f"DEPOSIT-->{num1}-->Total amount:{total}")
+        print("successfully dipositted")
+        print("Current balance:",total)
       else:
-        print("enter amount morethan zero, try again")
-         
-    case 2:#logic for withdraw
+        print("for this Amount deposit not possible. try again")
+        
+    case 2:
       try:
-        num2=(float(input("ENTER WITHIDRAW AMOUNT:")))
-      except TypeError:
-        print("enter amount in numbers only")
+        num2=float(input("Enter the WITHIDRAL Amount:"))
+      except (ValueError,TypeError,KeyError):
+        print("enter amount in numbers only...,")
         continue
-      if num2 <= balance:
+      if balance > num2:
         total = balance - num2
-        tran_hist.append(f"withidral-->{num2}")
-        print("withidral successfull")
-        print(f"current balance = {total}")
+        tran_hist.append(f"WITHIDRAW-->{num2}-->Total amount:{total}")
+        print("Amount successfully CREDITED")
+        print("Current Balance:",total)
       else:
         print("insufficient balance, try again")
         continue
       
-    case 3:#transaction history
+    case 3:
+      print("Account balance:",total)
+      continue
+    
+    case 4:
       if len(tran_hist)==0:
         print("no transactions yet")
       else:
-        print("transaction history:")
+        print("TRANSACTION HISTORY")
         for i in tran_hist:
-          print("-->",i)
-          
-    case 4:#taking exit
-      print("thankyou for using ATM")
-      print("visit again")
-      break
-      
-        
-        
-        
-      
-        
-        
-        
+          print("--->",i)
+          continue
     
-  
+    case 5:
+      print("thank you for using ATM, visit again..,")
+      print("           ")
+      exit()
+      
+      
+    
+      
+        
+        
+      
+        
   
 
-    
-      
-    
-    
-    
+
